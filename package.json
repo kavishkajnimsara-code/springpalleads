@@ -1,0 +1,31 @@
+{
+  "name": "spring-pal-leads",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test:unit": "tsx --test src/lib/__tests__/*.test.ts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.49.4",
+    "lucide-react": "0.511.0",
+    "next": "15.3.6",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.1.7",
+    "@types/node": "22.15.21",
+    "@types/react": "19.1.4",
+    "@types/react-dom": "19.1.5",
+    "eslint": "9.27.0",
+    "eslint-config-next": "15.3.6",
+    "tailwindcss": "4.1.7",
+    "tsx": "4.19.4",
+    "typescript": "5.8.3"
+  }
+}
