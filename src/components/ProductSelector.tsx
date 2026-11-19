@@ -50,7 +50,11 @@ export function ProductSelector({
         1. Choose what you&apos;re interested in
       </legend>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div
+        role="radiogroup"
+        aria-label="Product category"
+        className="grid grid-cols-2 gap-3"
+      >
         {PRODUCT_OPTIONS.map((option) => {
           const isSelected = value === option.id;
 
