@@ -215,9 +215,7 @@ export function LeadForm({ utm, onLeadCreated }: LeadFormProps) {
               }}
               aria-invalid={Boolean(fieldErrors.phoneNumber)}
               aria-describedby={
-                fieldErrors.phoneNumber
-                  ? "phoneNumber-error"
-                  : "phoneNumber-hint"
+                fieldErrors.phoneNumber ? "phoneNumber-error" : undefined
               }
               className={`w-full rounded-xl border bg-white py-3.5 pr-4 pl-11 text-base text-slate-900 placeholder:text-slate-400 transition-colors focus:ring-2 focus:outline-none disabled:bg-slate-50 ${
                 fieldErrors.phoneNumber
@@ -226,18 +224,13 @@ export function LeadForm({ utm, onLeadCreated }: LeadFormProps) {
               }`}
             />
           </div>
-          {fieldErrors.phoneNumber ? (
+          {fieldErrors.phoneNumber && (
             <p
               id="phoneNumber-error"
               role="alert"
               className="mt-1.5 text-xs font-medium text-red-600"
             >
               {fieldErrors.phoneNumber}
-            </p>
-          ) : (
-            <p id="phoneNumber-hint" className="mt-1.5 text-xs text-slate-500">
-              Our Spring Pal team will reach out on this number with your offer
-              details.
             </p>
           )}
         </div>
@@ -269,10 +262,6 @@ export function LeadForm({ utm, onLeadCreated }: LeadFormProps) {
           </>
         )}
       </button>
-
-      <p className="text-center text-xs text-slate-500">
-        No online payment required • Free callback from Spring Pal Sri Lanka
-      </p>
     </form>
   );
 }

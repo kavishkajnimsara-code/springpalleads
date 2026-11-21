@@ -151,18 +151,11 @@ export function LeadFunnel() {
         ) : (
           <div className="space-y-5">
             {/* High-Converting Hero Copy */}
-            <div className="space-y-2 text-center">
-              <span className="inline-flex items-center rounded-full bg-red-50 px-3 py-1 text-xs font-bold tracking-wide text-red-700 uppercase ring-1 ring-red-200/70">
-                Sri Lanka Exclusive Offer
-              </span>
+            <div className="text-center">
               <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
                 Get <span className="text-red-600">50% OFF</span> Premium Spring
                 Pal Mattresses
               </h1>
-              <p className="mx-auto max-w-lg text-sm leading-relaxed text-slate-600 sm:text-base">
-                Choose your product and enter your details below to select your
-                size and receive your exclusive offer.
-              </p>
             </div>
 
             {/* Lead Capture Form (Step 1) */}
