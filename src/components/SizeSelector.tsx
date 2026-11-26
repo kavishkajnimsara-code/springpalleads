@@ -5,8 +5,10 @@ import {
   AlertCircle,
   Check,
   CheckCircle2,
+  Copy,
   RefreshCw,
   Ruler,
+  Tag,
 } from "lucide-react";
 import { LoadingState } from "@/components/LoadingState";
 import {
@@ -41,8 +43,20 @@ export function SizeSelector({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isSessionExpired, setIsSessionExpired] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [copiedCoupon, setCopiedCoupon] = useState(false);
 
   const submitLockRef = useRef(false);
+
+  async function handleCopyCoupon() {
+    if (!session.couponCode) return;
+    try {
+      await navigator.clipboard.writeText(session.couponCode);
+      setCopiedCoupon(true);
+      setTimeout(() => setCopiedCoupon(false), 2000);
+    } catch {
+      // Clipboard API unavailable
+    }
+  }
 
   const isCustomSelected = selectedSizeId === CUSTOM_SIZE_ID;
 
@@ -155,16 +169,56 @@ export function SizeSelector({
 
   return (
     <div className="space-y-5">
-      {/* Progress & Confirmation Pill */}
-      <div className="flex items-center justify-between rounded-xl bg-emerald-50 px-3.5 py-2.5 text-xs font-medium text-emerald-900 ring-1 ring-emerald-200/80">
-        <span className="inline-flex items-center gap-1.5">
-          <CheckCircle2 className="h-4 w-4 text-emerald-600" aria-hidden="true" />
-          Details saved for{" "}
-          <strong className="font-semibold">{session.customerName}</strong>
-        </span>
-        <span className="rounded-full bg-white px-2.5 py-0.5 font-semibold text-emerald-700">
-          Step 2 of 2
-        </span>
+      {/* Progress, Confirmation & Custom Coupon Pill */}
+      <div className="space-y-2.5 rounded-2xl bg-emerald-50/90 px-3.5 py-3 text-xs font-medium text-emerald-900 ring-1 ring-emerald-200/80">
+        <div className="flex items-center justify-between gap-2">
+          <span className="inline-flex items-center gap-1.5">
+            <CheckCircle2
+              className="h-4 w-4 shrink-0 text-emerald-600"
+              aria-hidden="true"
+            />
+            <span>
+              Details saved for{" "}
+              <strong className="font-semibold">{session.customerName}</strong>
+            </span>
+          </span>
+          <span className="shrink-0 rounded-full bg-white px-2.5 py-0.5 font-semibold text-emerald-700">
+            Step 2 of 2
+          </span>
+        </div>
+
+        {session.couponCode && (
+          <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-dashed border-brand/40 bg-white px-3 py-2">
+            <div className="flex items-center gap-2">
+              <Tag className="h-4 w-4 shrink-0 text-brand" aria-hidden="true" />
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+                  Your Discount Coupon
+                </p>
+                <p className="font-mono text-sm font-extrabold tracking-wider text-brand-darker sm:text-base">
+                  {session.couponCode}
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => void handleCopyCoupon()}
+              className="inline-flex cursor-pointer items-center gap-1 rounded-lg bg-brand-soft px-2.5 py-1.5 text-xs font-bold text-brand transition-colors hover:bg-brand hover:text-white"
+            >
+              {copiedCoupon ? (
+                <>
+                  <Check className="h-3.5 w-3.5" />
+                  <span>Copied</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="h-3.5 w-3.5" />
+                  <span>Copy</span>
+                </>
+              )}
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Heading */}

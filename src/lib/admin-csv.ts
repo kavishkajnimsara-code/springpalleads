@@ -33,6 +33,7 @@ export function buildLeadsCsv(leads: AdminLeadRecord[]): string {
   const headers = [
     "Lead ID",
     "Created At",
+    "Coupon Code",
     "Customer Name",
     "Phone Number",
     "Product",
@@ -54,6 +55,7 @@ export function buildLeadsCsv(leads: AdminLeadRecord[]): string {
   const rows = leads.map((lead) => [
     escapeCsvCell(lead.id, false),
     escapeCsvCell(lead.created_at, false),
+    escapeCsvCell(lead.coupon_code ?? "", false),
     escapeCsvCell(lead.customer_name),
     // Prefix phone with single quote so Excel preserves leading +94 instead of formatting as number
     escapeCsvCell(lead.phone_number, true),

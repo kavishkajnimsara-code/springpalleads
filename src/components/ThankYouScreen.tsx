@@ -37,6 +37,14 @@ export function ThankYouScreen({ session }: ThankYouScreenProps) {
               {session.customerName}
             </dd>
           </div>
+          {session.couponCode && (
+            <div className="flex items-center justify-between gap-4 border-b border-slate-200/70 pb-2">
+              <dt className="text-slate-600">Discount Coupon</dt>
+              <dd className="rounded-lg bg-brand-soft px-2.5 py-0.5 font-mono text-sm font-extrabold tracking-wider text-brand-darker">
+                {session.couponCode}
+              </dd>
+            </div>
+          )}
           <div className="flex items-center justify-between gap-4 border-b border-slate-200/70 pb-2">
             <dt className="text-slate-600">Product</dt>
             <dd className="font-semibold text-slate-900">

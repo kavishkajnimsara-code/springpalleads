@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { generateCouponCode } from "@/lib/coupon";
 import { createLeadUpdateToken } from "@/lib/lead-token";
 import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
@@ -98,7 +99,7 @@ export async function POST(request: Request) {
     const dedupeCutoffIso = new Date(Date.now() - DEDUPE_WINDOW_MS).toISOString();
     const { data: recentLead, error: lookupError } = await supabase
       .from("leads")
-      .select("id, product_type, lead_status")
+      .select("*")
       .eq("phone_number", phoneResult.normalized)
       .eq("product_type", productResult.value)
       .eq("lead_status", "pending_size")
@@ -112,10 +113,15 @@ export async function POST(request: Request) {
     }
 
     if (recentLead?.id) {
+      const existingCoupon =
+        typeof recentLead.coupon_code === "string" && recentLead.coupon_code
+          ? recentLead.coupon_code
+          : generateCouponCode(productResult.value);
       const { token, expiresAt } = createLeadUpdateToken(recentLead.id);
       return NextResponse.json<CreateLeadResponse>(
         {
           leadId: recentLead.id,
+          couponCode: existingCoupon,
           updateToken: token,
           expiresAt,
           normalizedPhone: phoneResult.normalized,
@@ -127,22 +133,61 @@ export async function POST(request: Request) {
       );
     }
 
-    const { data: insertedLead, error: insertError } = await supabase
-      .from("leads")
-      .insert({
-        customer_name: nameResult.value,
-        phone_number: phoneResult.normalized,
-        product_type: productResult.value,
-        lead_status: "pending_size",
-        source: utm.source,
-        utm_source: utm.utm_source,
-        utm_medium: utm.utm_medium,
-        utm_campaign: utm.utm_campaign,
-        utm_content: utm.utm_content,
-        utm_term: utm.utm_term,
-      })
-      .select("id, product_type, lead_status")
-      .single();
+    let couponCode = generateCouponCode(productResult.value);
+    const baseInsert = {
+      customer_name: nameResult.value,
+      phone_number: phoneResult.normalized,
+      product_type: productResult.value,
+      lead_status: "pending_size" as const,
+      source: utm.source,
+      utm_source: utm.utm_source,
+      utm_medium: utm.utm_medium,
+      utm_campaign: utm.utm_campaign,
+      utm_content: utm.utm_content,
+      utm_term: utm.utm_term,
+    };
+
+    let insertedLead: { id: string; product_type: string; lead_status: string } | null =
+      null;
+    let insertError: { message: string; code?: string } | null = null;
+
+    // Try inserting with unique coupon_code (retry once on rare collision,
+    // and fall back cleanly if the coupon_code migration hasn't been run yet).
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      const result = await supabase
+        .from("leads")
+        .insert({ ...baseInsert, coupon_code: couponCode })
+        .select("id, product_type, lead_status")
+        .single();
+
+      if (!result.error && result.data) {
+        insertedLead = result.data;
+        insertError = null;
+        break;
+      }
+
+      insertError = result.error;
+
+      if (result.error?.code === "23505" && result.error.message.includes("coupon_code")) {
+        couponCode = generateCouponCode(productResult.value);
+        continue;
+      }
+
+      if (result.error?.message.includes("coupon_code")) {
+        console.warn(
+          "[POST /api/leads] coupon_code column missing in Supabase — run supabase/migrations/202611260002_add_coupon_code.sql"
+        );
+        const fallbackResult = await supabase
+          .from("leads")
+          .insert(baseInsert)
+          .select("id, product_type, lead_status")
+          .single();
+        insertedLead = fallbackResult.data;
+        insertError = fallbackResult.error;
+      }
+
+      break;
+    }
 
     if (insertError || !insertedLead) {
       console.error(
@@ -164,6 +209,7 @@ export async function POST(request: Request) {
     return NextResponse.json<CreateLeadResponse>(
       {
         leadId: insertedLead.id,
+        couponCode,
         updateToken: token,
         expiresAt,
         normalizedPhone: phoneResult.normalized,

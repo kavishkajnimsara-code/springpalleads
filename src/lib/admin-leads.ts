@@ -51,6 +51,7 @@ function normalizeLeadRow(row: Record<string, unknown>): AdminLeadRecord {
       row.product_type === "divan_bed_mattress"
         ? "divan_bed_mattress"
         : "mattress_only",
+    coupon_code: typeof row.coupon_code === "string" ? row.coupon_code : null,
     mattress_length:
       row.mattress_length === null || row.mattress_length === undefined
         ? null
@@ -150,7 +151,7 @@ export async function fetchAdminLeads(
     const cleaned = sanitizeSearchPattern(filters.search);
     if (cleaned) {
       query = query.or(
-        `customer_name.ilike.%${cleaned}%,phone_number.ilike.%${cleaned}%`
+        `customer_name.ilike.%${cleaned}%,phone_number.ilike.%${cleaned}%,coupon_code.ilike.%${cleaned}%`
       );
     }
   }

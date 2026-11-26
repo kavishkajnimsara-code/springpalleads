@@ -6,6 +6,7 @@ import {
 } from "../lead-token";
 import { checkRateLimit } from "../rate-limit";
 import { buildLeadsCsv, escapeCsvCell } from "../admin-csv";
+import { generateCouponCode } from "../coupon";
 import {
   normalizeSriLankanPhone,
   sanitizeUtmParams,
@@ -166,6 +167,7 @@ describe("Admin CSV export escaping", () => {
         customer_name: "Kasun Perera",
         phone_number: "+94771234567",
         product_type: "mattress_only",
+        coupon_code: "SP50-7K4M92",
         mattress_length: 75,
         mattress_width: 60,
         size_label: "75 × 60 inches",
@@ -183,8 +185,19 @@ describe("Admin CSV export escaping", () => {
         updated_at: "2026-11-26T10:02:00.000Z",
       },
     ]);
-    assert.ok(csv.startsWith("\uFEFFLead ID,Created At,Customer Name"));
-    assert.ok(csv.includes("Kasun Perera,'+94771234567,Mattress Only"));
+    assert.ok(csv.startsWith("\uFEFFLead ID,Created At,Coupon Code,Customer Name"));
+    assert.ok(csv.includes("SP50-7K4M92,Kasun Perera,'+94771234567,Mattress Only"));
     assert.ok(csv.includes("Call after 5pm"));
+  });
+});
+
+describe("Custom discount coupon code generator", () => {
+  it("generates product-specific prefixes with unambiguous 6-char codes", () => {
+    const mattressCode = generateCouponCode("mattress_only");
+    const bundleCode = generateCouponCode("divan_bed_mattress");
+
+    assert.match(mattressCode, /^SP50-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{6}$/);
+    assert.match(bundleCode, /^SP40-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{6}$/);
+    assert.notEqual(mattressCode, generateCouponCode("mattress_only"));
   });
 });

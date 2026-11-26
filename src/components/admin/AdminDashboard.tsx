@@ -59,10 +59,15 @@ function formatSlDateTime(isoString: string): string {
   }
 }
 
-function getWhatsAppUrl(phoneNumber: string, customerName: string): string {
+function getWhatsAppUrl(
+  phoneNumber: string,
+  customerName: string,
+  couponCode?: string | null
+): string {
   const digits = phoneNumber.replace(/[^\d]/g, "");
+  const couponNote = couponCode ? ` (Coupon: ${couponCode})` : "";
   const message = encodeURIComponent(
-    `Hi ${customerName}, thank you for your interest in Spring Pal's 50% OFF mattress offer! How can we assist you today?`
+    `Hi ${customerName}, thank you for your interest in Spring Pal's exclusive mattress offer${couponNote}! How can we assist you today?`
   );
   return `https://wa.me/${digits}?text=${message}`;
 }
@@ -445,7 +450,7 @@ export function AdminDashboard({
                 type="search"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search name or phone..."
+                placeholder="Search name, phone, or coupon..."
                 className="w-full rounded-xl border border-slate-300 bg-white py-2 pr-3 pl-9 text-sm text-slate-900 placeholder:text-slate-400 focus:border-slate-900 focus:outline-none"
               />
             </div>
@@ -591,6 +596,11 @@ export function AdminDashboard({
                           <p className="mt-0.5 text-xs text-slate-500">
                             {formatSlDateTime(lead.created_at)}
                           </p>
+                          {lead.coupon_code && (
+                            <span className="mt-1 inline-block rounded-md bg-brand-soft px-2 py-0.5 font-mono text-[11px] font-bold text-brand-darker">
+                              {lead.coupon_code}
+                            </span>
+                          )}
                         </td>
 
                         <td className="px-4 py-3.5 align-top">
@@ -608,7 +618,8 @@ export function AdminDashboard({
                             <a
                               href={getWhatsAppUrl(
                                 lead.phone_number,
-                                lead.customer_name
+                                lead.customer_name,
+                                lead.coupon_code
                               )}
                               target="_blank"
                               rel="noopener noreferrer"
@@ -738,6 +749,14 @@ export function AdminDashboard({
                   </div>
 
                   <div className="mt-3 space-y-1.5 text-xs text-slate-700">
+                    {lead.coupon_code && (
+                      <p>
+                        <span className="text-slate-500">Coupon:</span>{" "}
+                        <span className="rounded bg-brand-soft px-1.5 py-0.5 font-mono font-bold text-brand-darker">
+                          {lead.coupon_code}
+                        </span>
+                      </p>
+                    )}
                     <p>
                       <span className="text-slate-500">Product:</span>{" "}
                       <strong>{PRODUCT_LABELS[lead.product_type]}</strong>
@@ -769,7 +788,11 @@ export function AdminDashboard({
                       {lead.phone_number}
                     </a>
                     <a
-                      href={getWhatsAppUrl(lead.phone_number, lead.customer_name)}
+                      href={getWhatsAppUrl(
+                        lead.phone_number,
+                        lead.customer_name,
+                        lead.coupon_code
+                      )}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-emerald-600 px-3 py-2 text-xs font-bold text-white"

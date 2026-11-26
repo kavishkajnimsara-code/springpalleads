@@ -97,6 +97,7 @@ export function LeadFunnel() {
   function handleLeadCreated(data: CreateLeadResponse, customerName: string) {
     const nextSession: StoredLeadSession = {
       leadId: data.leadId,
+      couponCode: data.couponCode,
       updateToken: data.updateToken,
       expiresAt: data.expiresAt,
       customerName,

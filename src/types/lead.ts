@@ -14,6 +14,7 @@ export interface AdminLeadRecord {
   customer_name: string;
   phone_number: string;
   product_type: ProductType;
+  coupon_code: string | null;
   mattress_length: number | null;
   mattress_width: number | null;
   size_label: string | null;
@@ -67,6 +68,7 @@ export interface CreateLeadRequest {
 
 export interface CreateLeadResponse {
   leadId: string;
+  couponCode: string;
   updateToken: string;
   expiresAt: string;
   normalizedPhone: string;
@@ -99,6 +101,7 @@ export interface ApiErrorResponse {
 
 export interface StoredLeadSession {
   leadId: string;
+  couponCode?: string;
   updateToken: string;
   expiresAt: string;
   customerName: string;
