@@ -19,7 +19,7 @@ const PRODUCT_OPTIONS: readonly ProductOption[] = [
     title: "Mattress Only",
     subtitle: "Premium Spring Pal spring mattresses",
     badge: "50% OFF",
-    imageSrc: "/images/spring-pal-mattress.webp",
+    imageSrc: "/images/mattress-only.jpg",
     imageAlt: "Spring Pal premium spring mattress",
   },
   {
@@ -27,9 +27,8 @@ const PRODUCT_OPTIONS: readonly ProductOption[] = [
     title: "Divan Bed + Mattress",
     subtitle: "Complete bedroom bundle with upholstered divan",
     badge: "BUNDLE OFFER",
-    imageSrc: "/images/divan-bed-placeholder.svg",
-    imageAlt: "Spring Pal divan bed and mattress bundle placeholder",
-    isPlaceholder: true,
+    imageSrc: "/images/divan-bed-bundle.jpg",
+    imageAlt: "Spring Pal divan bed and mattress bundle",
   },
 ];
 
@@ -73,13 +72,13 @@ export function ProductSelector({
               } ${disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer"}`}
             >
               {/* Product Image */}
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
+              <div className="relative aspect-[4/3] w-full overflow-hidden bg-white p-2">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={option.imageSrc}
                   alt={option.imageAlt}
                   loading="eager"
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.03]"
                 />
                 <span
                   className={`absolute top-2 left-2 rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase shadow-xs ${
