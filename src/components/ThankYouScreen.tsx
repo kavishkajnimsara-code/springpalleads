@@ -1,7 +1,6 @@
 import {
   CheckCircle2,
   Globe,
-  MessageCircle,
   Phone,
   PhoneCall,
   ShieldCheck,
@@ -122,7 +121,7 @@ export function ThankYouScreen({ session }: ThankYouScreenProps) {
           href="https://springpal.lk"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 rounded-xl border border-brand-border bg-white px-4 py-3 text-sm font-bold text-brand-darker transition-colors hover:bg-brand-soft"
+          className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-brand-border bg-white px-3.5 text-xs font-bold whitespace-nowrap text-brand-darker shadow-2xs transition-all hover:border-brand hover:bg-brand-soft sm:text-[13px]"
         >
           <Globe className="h-4 w-4 shrink-0 text-brand" aria-hidden="true" />
           <span>Visit Our Website</span>
@@ -130,7 +129,7 @@ export function ThankYouScreen({ session }: ThankYouScreenProps) {
 
         <a
           href={`tel:${SPRING_PAL_PHONE_E164}`}
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-4 py-3 text-sm font-bold text-white shadow-sm transition-colors hover:bg-brand-dark"
+          className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-brand px-3.5 text-xs font-bold whitespace-nowrap text-white shadow-xs transition-all hover:bg-brand-dark sm:text-[13px]"
           title={`Call ${SPRING_PAL_PHONE_DISPLAY}`}
         >
           <Phone className="h-4 w-4 shrink-0" aria-hidden="true" />
@@ -141,10 +140,18 @@ export function ThankYouScreen({ session }: ThankYouScreenProps) {
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 text-sm font-bold text-white shadow-sm transition-colors hover:bg-emerald-700"
+          className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[#1EA952] px-3.5 text-xs font-bold whitespace-nowrap text-white shadow-xs transition-all hover:bg-[#189245] sm:text-[13px]"
           title={`WhatsApp ${SPRING_PAL_PHONE_DISPLAY}`}
         >
-          <MessageCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/whatsapp-icon.png"
+            alt=""
+            aria-hidden="true"
+            width={16}
+            height={16}
+            className="h-4 w-4 shrink-0 object-contain"
+          />
           <span>WhatsApp</span>
         </a>
       </div>

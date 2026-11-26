@@ -44,19 +44,36 @@ const CALL_STATUS_STYLES: Record<CallStatus, string> = {
   closed: "border-slate-200 bg-slate-100 text-slate-700",
 };
 
-function formatSlDateTime(isoString: string): string {
+function formatSlDate(isoString: string): string {
   try {
     return new Intl.DateTimeFormat("en-LK", {
       timeZone: "Asia/Colombo",
+      year: "numeric",
       month: "short",
       day: "numeric",
+    }).format(new Date(isoString));
+  } catch {
+    return isoString;
+  }
+}
+
+function formatSlTime(isoString: string): string {
+  try {
+    return new Intl.DateTimeFormat("en-LK", {
+      timeZone: "Asia/Colombo",
       hour: "numeric",
       minute: "2-digit",
       hour12: true,
     }).format(new Date(isoString));
   } catch {
-    return isoString;
+    return "";
   }
+}
+
+function formatSlDateTime(isoString: string): string {
+  const date = formatSlDate(isoString);
+  const time = formatSlTime(isoString);
+  return time ? `${date} • ${time}` : date;
 }
 
 function getWhatsAppUrl(
@@ -574,6 +591,7 @@ export function AdminDashboard({
                 <table className="w-full border-collapse text-left text-sm">
                   <thead>
                     <tr className="border-b border-slate-200 bg-slate-50/80 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      <th className="px-4 py-3">Date &amp; Time</th>
                       <th className="px-4 py-3">Customer</th>
                       <th className="px-4 py-3">Phone &amp; Actions</th>
                       <th className="px-4 py-3">Product &amp; Size</th>
@@ -589,12 +607,18 @@ export function AdminDashboard({
                         key={lead.id}
                         className="transition-colors hover:bg-slate-50/60"
                       >
+                        <td className="px-4 py-3.5 align-top whitespace-nowrap">
+                          <p className="text-xs font-semibold text-slate-900">
+                            {formatSlDate(lead.created_at)}
+                          </p>
+                          <p className="mt-0.5 text-xs text-slate-500">
+                            {formatSlTime(lead.created_at)}
+                          </p>
+                        </td>
+
                         <td className="px-4 py-3.5 align-top">
                           <p className="font-bold text-slate-900">
                             {lead.customer_name}
-                          </p>
-                          <p className="mt-0.5 text-xs text-slate-500">
-                            {formatSlDateTime(lead.created_at)}
                           </p>
                           {lead.coupon_code && (
                             <span className="mt-1 inline-block rounded-md bg-brand-soft px-2 py-0.5 font-mono text-[11px] font-bold text-brand-darker">
