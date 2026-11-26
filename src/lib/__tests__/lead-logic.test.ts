@@ -5,6 +5,7 @@ import {
   verifyLeadUpdateToken,
 } from "../lead-token";
 import { checkRateLimit } from "../rate-limit";
+import { buildLeadsCsv, escapeCsvCell } from "../admin-csv";
 import {
   normalizeSriLankanPhone,
   sanitizeUtmParams,
@@ -148,5 +149,42 @@ describe("Rate limiter", () => {
     const third = checkRateLimit(key, opts);
     assert.equal(third.allowed, false);
     assert.ok(third.retryAfterSeconds >= 1);
+  });
+});
+
+describe("Admin CSV export escaping", () => {
+  it("escapes quotes, commas, and neutralizes spreadsheet formulas", () => {
+    assert.equal(escapeCsvCell('Kasun, "Jr"'), '"Kasun, ""Jr"""');
+    assert.equal(escapeCsvCell("=SUM(A1:A2)"), "'=SUM(A1:A2)");
+    assert.equal(escapeCsvCell("+94771234567"), "'+94771234567");
+  });
+
+  it("builds a UTF-8 BOM CSV with headers and lead data", () => {
+    const csv = buildLeadsCsv([
+      {
+        id: "11111111-2222-4333-8444-555555555555",
+        customer_name: "Kasun Perera",
+        phone_number: "+94771234567",
+        product_type: "mattress_only",
+        mattress_length: 75,
+        mattress_width: 60,
+        size_label: "75 × 60 inches",
+        lead_status: "completed",
+        call_status: "new",
+        admin_notes: "Call after 5pm",
+        source: "facebook",
+        utm_source: "facebook",
+        utm_medium: "paid",
+        utm_campaign: "nov_sale",
+        utm_content: null,
+        utm_term: null,
+        created_at: "2026-11-26T10:00:00.000Z",
+        completed_at: "2026-11-26T10:02:00.000Z",
+        updated_at: "2026-11-26T10:02:00.000Z",
+      },
+    ]);
+    assert.ok(csv.startsWith("\uFEFFLead ID,Created At,Customer Name"));
+    assert.ok(csv.includes("Kasun Perera,'+94771234567,Mattress Only"));
+    assert.ok(csv.includes("Call after 5pm"));
   });
 });

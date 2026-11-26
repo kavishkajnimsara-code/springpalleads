@@ -2,6 +2,51 @@ export type ProductType = "mattress_only" | "divan_bed_mattress";
 
 export type LeadStatus = "pending_size" | "completed";
 
+export type CallStatus =
+  | "new"
+  | "called"
+  | "no_answer"
+  | "converted"
+  | "closed";
+
+export interface AdminLeadRecord {
+  id: string;
+  customer_name: string;
+  phone_number: string;
+  product_type: ProductType;
+  mattress_length: number | null;
+  mattress_width: number | null;
+  size_label: string | null;
+  lead_status: LeadStatus;
+  call_status: CallStatus;
+  admin_notes: string | null;
+  source: string | null;
+  utm_source: string | null;
+  utm_medium: string | null;
+  utm_campaign: string | null;
+  utm_content: string | null;
+  utm_term: string | null;
+  created_at: string;
+  completed_at: string | null;
+  updated_at: string | null;
+}
+
+export interface AdminLeadSummary {
+  total: number;
+  completed: number;
+  pendingSize: number;
+  today: number;
+  newCalls: number;
+}
+
+export const CALL_STATUS_LABELS: Record<CallStatus, string> = {
+  new: "New",
+  called: "Called",
+  no_answer: "No Answer",
+  converted: "Converted",
+  closed: "Closed",
+};
+
 export interface UtmParams {
   source?: string | null;
   utm_source?: string | null;
