@@ -1,14 +1,37 @@
-import { CheckCircle2, PhoneCall, ShieldCheck, Truck } from "lucide-react";
+import {
+  CheckCircle2,
+  Globe,
+  MessageCircle,
+  Phone,
+  PhoneCall,
+  ShieldCheck,
+  Truck,
+} from "lucide-react";
 import { PRODUCT_LABELS, type StoredLeadSession } from "@/types/lead";
 
 interface ThankYouScreenProps {
   session: StoredLeadSession;
 }
 
+const SPRING_PAL_PHONE_DISPLAY = "077 444 8293";
+const SPRING_PAL_PHONE_E164 = "+94774448293";
+const SPRING_PAL_WHATSAPP_DIGITS = "94774448293";
+
 export function ThankYouScreen({ session }: ThankYouScreenProps) {
   const isBundle = session.productType === "divan_bed_mattress";
   const offerPercentage = isBundle ? "40%" : "50%";
   const itemName = isBundle ? "Bundle Pack" : "Mattress";
+
+  const whatsappMessage = encodeURIComponent(
+    [
+      `Hi Spring Pal, I just claimed my ${offerPercentage} OFF offer for ${PRODUCT_LABELS[session.productType]}.`,
+      session.sizeLabel ? `Size: ${session.sizeLabel}` : null,
+      session.couponCode ? `Coupon: ${session.couponCode}` : null,
+    ]
+      .filter(Boolean)
+      .join(" ")
+  );
+  const whatsappUrl = `https://wa.me/${SPRING_PAL_WHATSAPP_DIGITS}?text=${whatsappMessage}`;
 
   return (
     <div className="py-4 text-center">
@@ -91,6 +114,39 @@ export function ThankYouScreen({ session }: ThankYouScreenProps) {
             Island-Wide Delivery
           </p>
         </div>
+      </div>
+
+      {/* Quick Action Buttons */}
+      <div className="mt-6 grid grid-cols-1 gap-2.5 sm:grid-cols-3">
+        <a
+          href="https://springpal.lk"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-2 rounded-xl border border-brand-border bg-white px-4 py-3 text-sm font-bold text-brand-darker transition-colors hover:bg-brand-soft"
+        >
+          <Globe className="h-4 w-4 shrink-0 text-brand" aria-hidden="true" />
+          <span>Visit Our Website</span>
+        </a>
+
+        <a
+          href={`tel:${SPRING_PAL_PHONE_E164}`}
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-4 py-3 text-sm font-bold text-white shadow-sm transition-colors hover:bg-brand-dark"
+          title={`Call ${SPRING_PAL_PHONE_DISPLAY}`}
+        >
+          <Phone className="h-4 w-4 shrink-0" aria-hidden="true" />
+          <span>Call Us Now</span>
+        </a>
+
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 text-sm font-bold text-white shadow-sm transition-colors hover:bg-emerald-700"
+          title={`WhatsApp ${SPRING_PAL_PHONE_DISPLAY}`}
+        >
+          <MessageCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
+          <span>WhatsApp</span>
+        </a>
       </div>
     </div>
   );

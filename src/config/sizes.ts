@@ -23,6 +23,10 @@ export const MATTRESS_SIZE_OPTIONS: readonly MattressSizeOption[] = [
   { id: "75x48", length: 75, width: 48, label: "75 × 48 inches", feetLabel: "6.25 × 4 ft" },
   { id: "75x60", length: 75, width: 60, label: "75 × 60 inches", feetLabel: "6.25 × 5 ft" },
   { id: "75x72", length: 75, width: 72, label: "75 × 72 inches", feetLabel: "6.25 × 6 ft" },
+  { id: "78x60", length: 78, width: 60, label: "78 × 60 inches", feetLabel: "6.5 × 5 ft" },
+  { id: "78x72", length: 78, width: 72, label: "78 × 72 inches", feetLabel: "6.5 × 6 ft" },
+  { id: "84x60", length: 84, width: 60, label: "84 × 60 inches", feetLabel: "7 × 5 ft" },
+  { id: "84x72", length: 84, width: 72, label: "84 × 72 inches", feetLabel: "7 × 6 ft" },
 ] as const;
 
 export const CUSTOM_SIZE_ID = "custom" as const;
