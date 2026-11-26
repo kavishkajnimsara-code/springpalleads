@@ -237,7 +237,7 @@ export function SizeSelector({
         <div
           role="radiogroup"
           aria-label="Mattress dimensions in inches"
-          className="grid grid-cols-2 gap-2.5 sm:gap-3"
+          className="grid grid-cols-2 gap-2 sm:grid-cols-3"
         >
           {MATTRESS_SIZE_OPTIONS.map((option) => {
             const isSelected = selectedSizeId === option.id;
@@ -254,26 +254,26 @@ export function SizeSelector({
                   setErrorMessage(null);
                   setFieldErrors({});
                 }}
-                className={`relative flex min-h-[64px] cursor-pointer flex-col items-center justify-center rounded-xl border-2 px-3 py-3 text-center transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-60 ${
+                className={`relative flex min-h-[48px] cursor-pointer flex-col items-center justify-center rounded-xl border-2 px-2 py-1.5 text-center transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-60 ${
                   isSelected
                     ? "border-brand bg-brand-soft/60 text-brand-darker shadow-xs ring-1 ring-brand/20"
                     : "border-slate-200 bg-white text-slate-900 hover:border-brand-border"
                 }`}
               >
-                <span className="text-base font-bold tracking-tight">
+                <span className="text-base leading-tight font-bold tracking-tight">
                   {option.length} × {option.width}{" "}
                   <span className="text-xs font-medium text-slate-500">in</span>
                 </span>
-                <span className="mt-0.5 text-xs font-semibold text-brand">
+                <span className="text-xs leading-tight font-semibold text-brand">
                   {option.feetLabel}
                 </span>
 
                 {isSelected && (
                   <span
-                    className="absolute top-2 right-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand text-white"
+                    className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-brand text-white"
                     aria-hidden="true"
                   >
-                    <Check className="h-3 w-3 stroke-[3]" />
+                    <Check className="h-2.5 w-2.5 stroke-[3]" />
                   </span>
                 )}
               </button>
@@ -290,7 +290,7 @@ export function SizeSelector({
               setSelectedSizeId(CUSTOM_SIZE_ID);
               setErrorMessage(null);
             }}
-            className={`relative col-span-2 flex min-h-[58px] cursor-pointer items-center justify-center gap-2 rounded-xl border-2 px-4 py-3 text-center transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-60 ${
+            className={`relative col-span-2 flex min-h-[44px] cursor-pointer items-center justify-center gap-2 rounded-xl border-2 px-3 py-2 text-center transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-60 sm:col-span-3 ${
               isCustomSelected
                 ? "border-brand bg-brand-soft/60 text-brand-darker shadow-xs ring-1 ring-brand/20"
                 : "border-dashed border-slate-300 bg-slate-50/70 text-slate-800 hover:border-brand-border"
