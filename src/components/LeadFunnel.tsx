@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { MapPin, ShieldCheck, Truck } from "lucide-react";
+import { Header } from "@/components/Header";
 import { LeadForm } from "@/components/LeadForm";
 import { SizeSelector } from "@/components/SizeSelector";
 import { ThankYouScreen } from "@/components/ThankYouScreen";
@@ -129,6 +130,7 @@ export function LeadFunnel() {
   return (
     <main className="mx-auto w-full max-w-2xl flex-1 px-4 pt-5 pb-10 sm:px-6 sm:pt-8">
       <section className="rounded-3xl border border-slate-200/80 bg-white p-5 shadow-xl shadow-slate-900/5 sm:p-8">
+        <Header />
         {!hydrated ? (
           <div className="space-y-4 py-4">
             <div className="h-7 w-3/4 animate-pulse rounded-lg bg-slate-100" />
