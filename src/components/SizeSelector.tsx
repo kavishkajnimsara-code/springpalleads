@@ -227,13 +227,9 @@ export function SizeSelector({
           <Ruler className="h-3.5 w-3.5" aria-hidden="true" />
           <span>{PRODUCT_LABELS[session.productType]}</span>
         </div>
-        <h1 className="mt-1 text-2xl font-extrabold tracking-tight text-slate-900">
-          Select Your Mattress Size
+        <h1 className="font-sinhala mt-1 text-xl leading-relaxed font-bold tracking-normal text-slate-900 sm:text-2xl">
+          ඔබට අවශ්ය Size එක තෝරන්න
         </h1>
-        <p className="mt-1 text-sm text-slate-600">
-          Choose the exact dimensions in inches (Length × Width), or enter a
-          custom size.
-        </p>
       </div>
 
       <form onSubmit={handleSubmit} noValidate className="space-y-5">
@@ -265,10 +261,11 @@ export function SizeSelector({
                 }`}
               >
                 <span className="text-base font-bold tracking-tight">
-                  {option.length} × {option.width}
+                  {option.length} × {option.width}{" "}
+                  <span className="text-xs font-medium text-slate-500">in</span>
                 </span>
-                <span className="text-xs font-medium text-slate-500">
-                  inches
+                <span className="mt-0.5 text-xs font-semibold text-brand">
+                  {option.feetLabel}
                 </span>
 
                 {isSelected && (

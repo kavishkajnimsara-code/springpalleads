@@ -6,6 +6,10 @@ interface ThankYouScreenProps {
 }
 
 export function ThankYouScreen({ session }: ThankYouScreenProps) {
+  const isBundle = session.productType === "divan_bed_mattress";
+  const offerPercentage = isBundle ? "40%" : "50%";
+  const itemName = isBundle ? "Bundle Pack" : "Mattress";
+
   return (
     <div className="py-4 text-center">
       {/* Animated Success Icon */}
@@ -17,7 +21,9 @@ export function ThankYouScreen({ session }: ThankYouScreenProps) {
       </div>
 
       <h1 className="mt-5 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
-        Request Confirmed
+        You Received{" "}
+        <span className="text-brand">{offerPercentage} OFF</span> for your{" "}
+        {itemName}
       </h1>
 
       <p className="mx-auto mt-3 max-w-md text-base leading-relaxed text-slate-700">

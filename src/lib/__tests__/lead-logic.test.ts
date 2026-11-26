@@ -192,12 +192,8 @@ describe("Admin CSV export escaping", () => {
 });
 
 describe("Custom discount coupon code generator", () => {
-  it("generates product-specific prefixes with unambiguous 6-char codes", () => {
-    const mattressCode = generateCouponCode("mattress_only");
-    const bundleCode = generateCouponCode("divan_bed_mattress");
-
-    assert.match(mattressCode, /^SP50-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{6}$/);
-    assert.match(bundleCode, /^SP40-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{6}$/);
-    assert.notEqual(mattressCode, generateCouponCode("mattress_only"));
+  it("formats coupon as SP50- followed by the last 7 digits of the contact number", () => {
+    assert.equal(generateCouponCode("+94716494884"), "SP50-6494884");
+    assert.equal(generateCouponCode("077 123 4567"), "SP50-1234567");
   });
 });

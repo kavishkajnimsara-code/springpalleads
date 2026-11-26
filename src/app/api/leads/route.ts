@@ -116,7 +116,7 @@ export async function POST(request: Request) {
       const existingCoupon =
         typeof recentLead.coupon_code === "string" && recentLead.coupon_code
           ? recentLead.coupon_code
-          : generateCouponCode(productResult.value);
+          : generateCouponCode(phoneResult.normalized);
       const { token, expiresAt } = createLeadUpdateToken(recentLead.id);
       return NextResponse.json<CreateLeadResponse>(
         {
@@ -133,7 +133,7 @@ export async function POST(request: Request) {
       );
     }
 
-    let couponCode = generateCouponCode(productResult.value);
+    const couponCode = generateCouponCode(phoneResult.normalized);
     const baseInsert = {
       customer_name: nameResult.value,
       phone_number: phoneResult.normalized,
@@ -147,46 +147,29 @@ export async function POST(request: Request) {
       utm_term: utm.utm_term,
     };
 
-    let insertedLead: { id: string; product_type: string; lead_status: string } | null =
-      null;
-    let insertError: { message: string; code?: string } | null = null;
+    const primaryResult = await supabase
+      .from("leads")
+      .insert({ ...baseInsert, coupon_code: couponCode })
+      .select("id, product_type, lead_status")
+      .single();
 
-    // Try inserting with unique coupon_code (retry once on rare collision,
-    // and fall back cleanly if the coupon_code migration hasn't been run yet).
-    for (let attempt = 0; attempt < 2; attempt += 1) {
-      const result = await supabase
+    let insertedLead = primaryResult.data;
+    let insertError = primaryResult.error;
+
+    if (
+      insertError &&
+      (insertError.message.includes("coupon_code") || insertError.code === "23505")
+    ) {
+      console.warn(
+        "[POST /api/leads] Falling back without coupon_code column — run supabase/migrations/202611260002_add_coupon_code.sql"
+      );
+      const fallbackResult = await supabase
         .from("leads")
-        .insert({ ...baseInsert, coupon_code: couponCode })
+        .insert(baseInsert)
         .select("id, product_type, lead_status")
         .single();
-
-      if (!result.error && result.data) {
-        insertedLead = result.data;
-        insertError = null;
-        break;
-      }
-
-      insertError = result.error;
-
-      if (result.error?.code === "23505" && result.error.message.includes("coupon_code")) {
-        couponCode = generateCouponCode(productResult.value);
-        continue;
-      }
-
-      if (result.error?.message.includes("coupon_code")) {
-        console.warn(
-          "[POST /api/leads] coupon_code column missing in Supabase — run supabase/migrations/202611260002_add_coupon_code.sql"
-        );
-        const fallbackResult = await supabase
-          .from("leads")
-          .insert(baseInsert)
-          .select("id, product_type, lead_status")
-          .single();
-        insertedLead = fallbackResult.data;
-        insertError = fallbackResult.error;
-      }
-
-      break;
+      insertedLead = fallbackResult.data;
+      insertError = fallbackResult.error;
     }
 
     if (insertError || !insertedLead) {
