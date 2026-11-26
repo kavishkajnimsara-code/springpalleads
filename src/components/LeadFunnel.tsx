@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MapPin, ShieldCheck, Truck } from "lucide-react";
+import { Gift, ShieldCheck, Truck } from "lucide-react";
 import { Header } from "@/components/Header";
 import { LeadForm } from "@/components/LeadForm";
 import { SizeSelector } from "@/components/SizeSelector";
@@ -193,11 +193,11 @@ export function LeadFunnel() {
           </div>
 
           <div className="flex flex-col items-center rounded-2xl border border-slate-200/70 bg-white px-2.5 py-3 shadow-xs">
-            <MapPin className="h-5 w-5 text-red-600" aria-hidden="true" />
+            <Gift className="h-5 w-5 text-red-600" aria-hidden="true" />
             <p className="mt-1.5 text-xs font-bold text-slate-900">
-              Nawala Showroom
+              5 Pillows Free
             </p>
-            <p className="text-[11px] text-slate-500">Sri Lanka brand</p>
+            <p className="text-[11px] text-slate-500">Included free</p>
           </div>
         </aside>
       )}

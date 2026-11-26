@@ -6,7 +6,6 @@ import type { ProductType } from "@/types/lead";
 interface ProductOption {
   id: ProductType;
   title: string;
-  subtitle: string;
   badge: string;
   imageSrc: string;
   imageAlt: string;
@@ -17,7 +16,6 @@ const PRODUCT_OPTIONS: readonly ProductOption[] = [
   {
     id: "mattress_only",
     title: "Mattress Only",
-    subtitle: "Premium Spring Pal spring mattresses",
     badge: "50% OFF",
     imageSrc: "/images/mattress-only.jpg",
     imageAlt: "Spring Pal premium spring mattress",
@@ -25,8 +23,7 @@ const PRODUCT_OPTIONS: readonly ProductOption[] = [
   {
     id: "divan_bed_mattress",
     title: "Divan Bed + Mattress",
-    subtitle: "Complete bedroom bundle with upholstered divan",
-    badge: "BUNDLE OFFER",
+    badge: "40% OFF",
     imageSrc: "/images/divan-bed-bundle.jpg",
     imageAlt: "Spring Pal divan bed and mattress bundle",
   },
@@ -81,10 +78,10 @@ export function ProductSelector({
                   className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.03]"
                 />
                 <span
-                  className={`absolute top-2 left-2 rounded-full px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase shadow-xs ${
+                  className={`absolute top-2 left-2 rounded-full tracking-wide uppercase shadow-sm ${
                     option.id === "mattress_only"
-                      ? "bg-red-600 text-white"
-                      : "bg-slate-900 text-white"
+                      ? "bg-red-600 px-3 py-1 text-xs font-extrabold text-white sm:px-3.5 sm:py-1.5 sm:text-sm"
+                      : "bg-slate-900 px-2.5 py-1 text-[11px] font-bold text-white sm:px-3 sm:text-xs"
                   }`}
                 >
                   {option.badge}
@@ -101,15 +98,10 @@ export function ProductSelector({
               </div>
 
               {/* Card Text */}
-              <div className="flex flex-1 flex-col justify-between p-3">
-                <div>
-                  <p className="text-sm font-bold leading-snug text-slate-900 sm:text-base">
-                    {option.title}
-                  </p>
-                  <p className="mt-0.5 text-xs leading-relaxed text-slate-600">
-                    {option.subtitle}
-                  </p>
-                </div>
+              <div className="flex flex-1 items-center justify-center p-3 text-center">
+                <p className="text-sm font-bold leading-snug text-slate-900 sm:text-base">
+                  {option.title}
+                </p>
               </div>
             </button>
           );

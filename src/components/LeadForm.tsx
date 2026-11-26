@@ -117,7 +117,7 @@ export function LeadForm({ utm, onLeadCreated }: LeadFormProps) {
       {/* Customer Details */}
       <div className="space-y-3.5">
         <p className="text-sm font-semibold text-slate-900">
-          2. Enter your contact details to unlock the 50% OFF offer
+          2. Enter your details to get 50% Offer
         </p>
 
         {/* Honeypot anti-spam field */}
@@ -190,7 +190,7 @@ export function LeadForm({ utm, onLeadCreated }: LeadFormProps) {
             htmlFor="phoneNumber"
             className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-700"
           >
-            Mobile Number (Sri Lanka)
+            Mobile Number
           </label>
           <div className="relative">
             <Phone
