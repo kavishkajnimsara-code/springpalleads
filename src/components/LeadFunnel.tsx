@@ -154,9 +154,9 @@ export function LeadFunnel() {
           <div className="space-y-5">
             {/* High-Converting Hero Copy */}
             <div className="text-center">
-              <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
-                Get <span className="text-red-600">50% OFF</span> Premium Spring
-                Pal Mattresses
+              <h1 className="text-xl leading-snug font-extrabold tracking-tight text-slate-900 sm:text-2xl">
+                ඔබේ විස්තර ඇතුළත් කර{" "}
+                <span className="text-red-600">50%</span> වට්ටම ලබාගන්න
               </h1>
             </div>
 
