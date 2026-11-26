@@ -3,6 +3,12 @@
 @theme inline {
   --font-sans: var(--font-plus-jakarta-sans), var(--font-noto-sans-sinhala), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-sinhala: var(--font-noto-sans-sinhala), var(--font-plus-jakarta-sans), ui-sans-serif, system-ui, sans-serif;
+  --color-brand: #0c5975;
+  --color-brand-dark: #09455b;
+  --color-brand-darker: #063344;
+  --color-brand-light: #137496;
+  --color-brand-soft: #ebf5f8;
+  --color-brand-border: #b8dce8;
 }
 
 html {

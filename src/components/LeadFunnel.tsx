@@ -156,8 +156,8 @@ export function LeadFunnel() {
             <div className="text-center">
               <h1 className="font-sinhala text-xl leading-relaxed font-bold tracking-normal text-slate-900 sm:text-2xl">
                 ඔබේ විස්තර ඇතුළත් කර{" "}
-                <span className="font-extrabold text-red-600">50%</span> වට්ටම
-                ලබාගන්න
+                <span className="font-extrabold text-brand">50%ක්</span> දක්වා
+                වට්ටම් ලබාගන්න
               </h1>
             </div>
 
@@ -173,31 +173,28 @@ export function LeadFunnel() {
           aria-label="Spring Pal trust highlights"
           className="mt-5 grid grid-cols-3 gap-2 text-center sm:gap-3"
         >
-          <div className="flex flex-col items-center rounded-2xl border border-slate-200/70 bg-white px-2.5 py-3 shadow-xs">
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-brand-border/60 bg-white px-2.5 py-3 shadow-xs">
             <ShieldCheck
-              className="h-5 w-5 text-emerald-600"
+              className="h-5 w-5 text-brand"
               aria-hidden="true"
             />
             <p className="mt-1.5 text-xs font-bold text-slate-900">
               10-Year Warranty
             </p>
-            <p className="text-[11px] text-slate-500">On spring mattresses</p>
           </div>
 
-          <div className="flex flex-col items-center rounded-2xl border border-slate-200/70 bg-white px-2.5 py-3 shadow-xs">
-            <Truck className="h-5 w-5 text-slate-800" aria-hidden="true" />
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-brand-border/60 bg-white px-2.5 py-3 shadow-xs">
+            <Truck className="h-5 w-5 text-brand" aria-hidden="true" />
             <p className="mt-1.5 text-xs font-bold text-slate-900">
               Island-Wide
             </p>
-            <p className="text-[11px] text-slate-500">Delivery across SL</p>
           </div>
 
-          <div className="flex flex-col items-center rounded-2xl border border-slate-200/70 bg-white px-2.5 py-3 shadow-xs">
-            <Gift className="h-5 w-5 text-red-600" aria-hidden="true" />
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-brand-border/60 bg-white px-2.5 py-3 shadow-xs">
+            <Gift className="h-5 w-5 text-brand" aria-hidden="true" />
             <p className="mt-1.5 text-xs font-bold text-slate-900">
               5 Pillows Free
             </p>
-            <p className="text-[11px] text-slate-500">Included free</p>
           </div>
         </aside>
       )}

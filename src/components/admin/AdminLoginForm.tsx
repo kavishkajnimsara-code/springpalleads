@@ -137,7 +137,7 @@ export function AdminLoginForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="flex w-full cursor-pointer items-center justify-center rounded-2xl bg-slate-900 px-6 py-3.5 text-sm font-bold tracking-wide text-white shadow-sm transition-colors hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-70"
+        className="flex w-full cursor-pointer items-center justify-center rounded-2xl bg-brand px-6 py-3.5 text-sm font-bold tracking-wide text-white shadow-sm transition-colors hover:bg-brand-dark disabled:cursor-not-allowed disabled:opacity-70"
       >
         {isSubmitting ? (
           <LoadingState compact label="SIGNING IN..." />

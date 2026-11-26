@@ -46,7 +46,7 @@ export function ThankYouScreen({ session }: ThankYouScreenProps) {
           {session.sizeLabel && (
             <div className="flex items-center justify-between gap-4">
               <dt className="text-slate-600">Selected Size</dt>
-              <dd className="font-semibold text-red-700">
+              <dd className="font-semibold text-brand">
                 {session.sizeLabel}
               </dd>
             </div>
@@ -56,23 +56,23 @@ export function ThankYouScreen({ session }: ThankYouScreenProps) {
 
       {/* Verified Spring Pal Trust Highlights */}
       <div className="mt-6 grid grid-cols-3 gap-2 text-center">
-        <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200/80">
-          <PhoneCall className="mx-auto h-4 w-4 text-red-600" aria-hidden="true" />
+        <div className="rounded-xl bg-white p-3 ring-1 ring-brand-border/60">
+          <PhoneCall className="mx-auto h-4 w-4 text-brand" aria-hidden="true" />
           <p className="mt-1.5 text-[11px] font-semibold text-slate-700">
             Quick Callback
           </p>
         </div>
-        <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200/80">
+        <div className="rounded-xl bg-white p-3 ring-1 ring-brand-border/60">
           <ShieldCheck
-            className="mx-auto h-4 w-4 text-emerald-600"
+            className="mx-auto h-4 w-4 text-brand"
             aria-hidden="true"
           />
           <p className="mt-1.5 text-[11px] font-semibold text-slate-700">
             10-Year Warranty
           </p>
         </div>
-        <div className="rounded-xl bg-white p-3 ring-1 ring-slate-200/80">
-          <Truck className="mx-auto h-4 w-4 text-slate-700" aria-hidden="true" />
+        <div className="rounded-xl bg-white p-3 ring-1 ring-brand-border/60">
+          <Truck className="mx-auto h-4 w-4 text-brand" aria-hidden="true" />
           <p className="mt-1.5 text-[11px] font-semibold text-slate-700">
             Island-Wide Delivery
           </p>

@@ -19,8 +19,8 @@ export function Header() {
           className="h-10 w-auto object-contain sm:h-11"
         />
       ) : (
-        <span className="text-xl font-extrabold tracking-tight text-slate-900">
-          SPRING <span className="text-red-600">PAL</span>
+        <span className="text-xl font-extrabold tracking-tight text-brand-darker">
+          SPRING <span className="text-brand">PAL</span>
         </span>
       )}
     </header>

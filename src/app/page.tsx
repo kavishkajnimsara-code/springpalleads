@@ -10,7 +10,15 @@ export default function HomePage() {
         <div className="mx-auto max-w-2xl px-4">
           <p className="font-semibold text-slate-700">Spring Pal Sri Lanka</p>
           <p className="mt-1">
-            246 A, Nawala Rd, Sri Jayawardenepura Kotte • Island-Wide Delivery
+            246 A, Nawala Rd, Sri Jayawardenepura Kotte •{" "}
+            <a
+              href="https://springpal.lk"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-brand underline underline-offset-2 hover:text-brand-dark"
+            >
+              springpal.lk
+            </a>
           </p>
         </div>
       </footer>

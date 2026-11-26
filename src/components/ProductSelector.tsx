@@ -62,10 +62,10 @@ export function ProductSelector({
               aria-checked={isSelected}
               onClick={() => onChange(option.id)}
               disabled={disabled}
-              className={`group relative flex flex-col overflow-hidden rounded-2xl border-2 text-left transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 ${
+              className={`group relative flex flex-col overflow-hidden rounded-2xl border-2 text-left transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ${
                 isSelected
-                  ? "border-red-600 bg-red-50/40 shadow-sm ring-1 ring-red-600/20"
-                  : "border-slate-200 bg-white hover:border-slate-300"
+                  ? "border-brand bg-brand-soft/60 shadow-sm ring-1 ring-brand/20"
+                  : "border-slate-200 bg-white hover:border-brand-border"
               } ${disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer"}`}
             >
               {/* Product Image */}
@@ -80,8 +80,8 @@ export function ProductSelector({
                 <span
                   className={`absolute top-2 left-2 rounded-full tracking-wide uppercase shadow-sm ${
                     option.id === "mattress_only"
-                      ? "bg-red-600 px-3 py-1 text-xs font-extrabold text-white sm:px-3.5 sm:py-1.5 sm:text-sm"
-                      : "bg-slate-900 px-2.5 py-1 text-[11px] font-bold text-white sm:px-3 sm:text-xs"
+                      ? "bg-brand px-3 py-1 text-xs font-extrabold text-white sm:px-3.5 sm:py-1.5 sm:text-sm"
+                      : "bg-brand-darker px-2.5 py-1 text-[11px] font-bold text-white sm:px-3 sm:text-xs"
                   }`}
                 >
                   {option.badge}
@@ -89,7 +89,7 @@ export function ProductSelector({
 
                 {isSelected && (
                   <span
-                    className="absolute top-2 right-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-600 text-white shadow-xs"
+                    className="absolute top-2 right-2 flex h-6 w-6 items-center justify-center rounded-full bg-brand text-white shadow-xs"
                     aria-hidden="true"
                   >
                     <CheckCircle2 className="h-4 w-4" />

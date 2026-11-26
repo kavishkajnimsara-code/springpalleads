@@ -169,7 +169,7 @@ export function LeadForm({ utm, onLeadCreated }: LeadFormProps) {
               className={`w-full rounded-xl border bg-white py-3.5 pr-4 pl-11 text-base text-slate-900 placeholder:text-slate-400 transition-colors focus:ring-2 focus:outline-none disabled:bg-slate-50 ${
                 fieldErrors.customerName
                   ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                  : "border-slate-300 focus:border-slate-900 focus:ring-slate-900/10"
+                  : "border-slate-300 focus:border-brand focus:ring-brand/15"
               }`}
             />
           </div>
@@ -220,7 +220,7 @@ export function LeadForm({ utm, onLeadCreated }: LeadFormProps) {
               className={`w-full rounded-xl border bg-white py-3.5 pr-4 pl-11 text-base text-slate-900 placeholder:text-slate-400 transition-colors focus:ring-2 focus:outline-none disabled:bg-slate-50 ${
                 fieldErrors.phoneNumber
                   ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
-                  : "border-slate-300 focus:border-slate-900 focus:ring-slate-900/10"
+                  : "border-slate-300 focus:border-brand focus:ring-brand/15"
               }`}
             />
           </div>
@@ -251,7 +251,7 @@ export function LeadForm({ utm, onLeadCreated }: LeadFormProps) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl bg-red-600 px-6 py-4 text-base font-extrabold tracking-wide text-white shadow-lg shadow-red-600/25 transition-all hover:bg-red-700 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:cursor-not-allowed disabled:opacity-75"
+        className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl bg-brand px-6 py-4 text-base font-extrabold tracking-wide text-white shadow-lg shadow-brand/25 transition-all hover:bg-brand-dark active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-75"
       >
         {isSubmitting ? (
           <LoadingState compact label="SAVING DETAILS..." />

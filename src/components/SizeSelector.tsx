@@ -169,7 +169,7 @@ export function SizeSelector({
 
       {/* Heading */}
       <div>
-        <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-red-600">
+        <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-brand">
           <Ruler className="h-3.5 w-3.5" aria-hidden="true" />
           <span>{PRODUCT_LABELS[session.productType]}</span>
         </div>
@@ -204,10 +204,10 @@ export function SizeSelector({
                   setErrorMessage(null);
                   setFieldErrors({});
                 }}
-                className={`relative flex min-h-[64px] cursor-pointer flex-col items-center justify-center rounded-xl border-2 px-3 py-3 text-center transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:cursor-not-allowed disabled:opacity-60 ${
+                className={`relative flex min-h-[64px] cursor-pointer flex-col items-center justify-center rounded-xl border-2 px-3 py-3 text-center transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-60 ${
                   isSelected
-                    ? "border-red-600 bg-red-50/60 text-red-950 shadow-xs ring-1 ring-red-600/20"
-                    : "border-slate-200 bg-white text-slate-900 hover:border-slate-300"
+                    ? "border-brand bg-brand-soft/60 text-brand-darker shadow-xs ring-1 ring-brand/20"
+                    : "border-slate-200 bg-white text-slate-900 hover:border-brand-border"
                 }`}
               >
                 <span className="text-base font-bold tracking-tight">
@@ -219,7 +219,7 @@ export function SizeSelector({
 
                 {isSelected && (
                   <span
-                    className="absolute top-2 right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-white"
+                    className="absolute top-2 right-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand text-white"
                     aria-hidden="true"
                   >
                     <Check className="h-3 w-3 stroke-[3]" />
@@ -239,19 +239,19 @@ export function SizeSelector({
               setSelectedSizeId(CUSTOM_SIZE_ID);
               setErrorMessage(null);
             }}
-            className={`relative col-span-2 flex min-h-[58px] cursor-pointer items-center justify-center gap-2 rounded-xl border-2 px-4 py-3 text-center transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:cursor-not-allowed disabled:opacity-60 ${
+            className={`relative col-span-2 flex min-h-[58px] cursor-pointer items-center justify-center gap-2 rounded-xl border-2 px-4 py-3 text-center transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-60 ${
               isCustomSelected
-                ? "border-red-600 bg-red-50/60 text-red-950 shadow-xs ring-1 ring-red-600/20"
-                : "border-dashed border-slate-300 bg-slate-50/70 text-slate-800 hover:border-slate-400"
+                ? "border-brand bg-brand-soft/60 text-brand-darker shadow-xs ring-1 ring-brand/20"
+                : "border-dashed border-slate-300 bg-slate-50/70 text-slate-800 hover:border-brand-border"
             }`}
           >
-            <Ruler className="h-4 w-4 text-red-600" aria-hidden="true" />
+            <Ruler className="h-4 w-4 text-brand" aria-hidden="true" />
             <span className="text-sm font-bold sm:text-base">
               Custom Size (Enter Length &amp; Width)
             </span>
             {isCustomSelected && (
               <span
-                className="absolute top-1/2 right-3 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full bg-red-600 text-white"
+                className="absolute top-1/2 right-3 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full bg-brand text-white"
                 aria-hidden="true"
               >
                 <Check className="h-3 w-3 stroke-[3]" />
@@ -375,7 +375,7 @@ export function SizeSelector({
           <button
             type="submit"
             disabled={isSubmitting || !selectedSizeId}
-            className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl bg-red-600 px-6 py-4 text-base font-extrabold tracking-wide text-white shadow-lg shadow-red-600/25 transition-all hover:bg-red-700 active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl bg-brand px-6 py-4 text-base font-extrabold tracking-wide text-white shadow-lg shadow-brand/25 transition-all hover:bg-brand-dark active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isSubmitting ? (
               <LoadingState compact label="CONFIRMING SIZE..." />
